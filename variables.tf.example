@@ -1,0 +1,26 @@
+## provider
+
+variable "aws_profile" {
+  description = "Name of profile in the credentials file"
+  default     = ""
+}
+
+variable "region" {
+  description = "AWS region to provision resources"
+  default     = ""
+}
+
+## basic ec2 config
+variable bastion_config {
+  description = "Map containing all the parameters for the creation of the EC2 instances"
+  default = [
+    {
+      server 1 details
+      }
+    },
+    {
+      server 2 details
+      }
+    }
+  ]
+}

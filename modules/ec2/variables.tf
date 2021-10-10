@@ -1,90 +1,26 @@
+# variable "prefix" {
+#   description = "Prefix to apply to the EC2 names and other resources created"
+#   type        = string
+# }
 
-variable "ami_id" {
-  default = "ami-02e136e904f3da870"
-}
-
-variable "associate_public_ip_address" {
-  default = false
-}
-
-variable "az_replication" {
-  default = true
-}
-
-variable "azs" {
-  type    = list(string)
-  default = ["us-east-1a", "us-east-1b"]
-}
-
-variable "create" {
-  default = true
-}
-
-variable "ebs_block_device" {
-  type = list(map(string))
-  default = [
-      {
-        volume_type = "gp2"
-        volume_size = 10
-        encrypted   = false
-      }
-    ]
-
-}
-
-variable "iam_instance_profile" {
-  default = ""
-}
-
-variable "instance_count" {
-  default = 1
-}
-
-variable "instance_type" {
-  default = "t2.micro"
-}
-
-variable "key_name" {
-  default = ""
-}
-
-variable "name" {
-  default = ""
-}
-
-variable "subnet_ids" {
-  type    = list(string)
-  default = []
-}
-
-variable "root_block_device" {
-  type = list(map(string))
-  default = [
-      {
-        volume_type = "gp2"
-        volume_size = 10
-        encrypted   = false
-      }
-    ]
-}
-
-variable "tags" {
-  type = map(string)
-  default = {
-      Terraform = "true",
-      environment = "dev"
-    }
-}
-
-variable "volume_tags" {
-  type = map(string)
-  default = {
-      Terraform = "true",
-      environment = "dev"
-    }
-}
-
-variable "vpc_security_group_ids" {
-  type    = list(string)
-  default = []
+variable "ec2_config" {
+  description = "Map containing all the paramenters for the creation of the EC2 instances"
+  type = object({
+    create                      = bool
+    # az_replication              = bool
+    # azs                         = list(string)
+    ami                         = string
+    associate_public_ip_address = bool
+    instance_type               = string
+    name                        = string
+    # vpc_security_group_ids      = list(string)
+    # subnet_ids                  = list(string)
+    root_block_device           = list(any)
+    ebs_block_device            = list(map(string))
+    iam_instance_profile        = string
+    key_name                    = string
+    tags                        = map(string)
+    user_data                   = string
+    volume_tags                 = map(string)
+  })
 }

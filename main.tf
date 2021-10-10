@@ -11,19 +11,15 @@ provider "aws" {
   region  = var.region
 }
 
-# resource "aws_instance" "app_server" {
-#   ami           = var.ec2_ami
-#   instance_type = var.instance_type
-#
-#   tags = {
-#     Name = "ExampleAppServerInstance"
-#   }
-# }
+# This module creates specified IAM roles / profiles / policies
+module "iam" {
+  source = "./modules/iam"
+}
 
-# This module call creates an EC2 instance
-module "ec2_instance" {
-  source             = "./modules/ec2"
-  name               = var.name
-  ami_id             = var.ec2_ami
-  instance_type      = var.instance_type
+
+# This module call creates n number of EC2 instance
+module "ec2_instances" {
+  source     = "./modules/ec2"
+  count      = length(var.bastion_config)
+  ec2_config = element(var.bastion_config, count.index)
 }

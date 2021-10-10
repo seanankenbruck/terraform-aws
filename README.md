@@ -6,3 +6,4 @@ This project contains Terraform scripts to provision AWS resources. It is intend
 
 ## Current Supported Modules
   >- EC2
+  >- IAM
